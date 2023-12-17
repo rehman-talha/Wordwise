@@ -1,43 +1,55 @@
 // content/content.js
 
-// Function to fetch the user's selected difficulty level from extension options
-function getUserDifficultyLevel() {
-  // You need to implement logic to fetch the user's preferred difficulty level from extension options
-  // For now, let's assume a default value of 1
-  return 1;
+// Function to retrieve words and their meanings from the background script
+function getWordDefinitions(word, callback) {
+  browser.runtime.sendMessage({ action: 'getWordDefinition', word: word }, callback);
 }
 
-// Function to fetch definitions using ChatGPT API
-async function fetchDefinitionFromChatGPT(word) {
-  // You need to implement logic to fetch definitions using ChatGPT API
-  // For now, let's assume a placeholder implementation
-  const response = await fetch(`https://api.example.com/chatgpt?word=${word}`);
-  const data = await response.json();
-  return data.definition;
+// Function to underline a word on the page with its definition
+function underlineWord(word, definition) {
+  // Adjust the line-height value based on your preference
+  const lineHeightValue = '1.2';
+
+  // Create a span element for the underlined word
+  const span = document.createElement('span');
+  span.style.textDecoration = 'underline';
+  span.style.position = 'relative';
+  span.style.lineHeight = lineHeightValue; // Set a smaller line height
+  span.title = definition; // Tooltip with the definition
+  span.textContent = word;
+
+  // Create a range and surround the word with the span element
+  const range = document.createRange();
+  range.selectNodeContents(document.body);
+  range.surroundContents(span);
 }
 
-// Function to load difficult words based on user's selected difficulty level
-function loadDifficultWords() {
-  const userDifficultyLevel = getUserDifficultyLevel();
+// Function to process the text content of the webpage
+function processPageContent() {
+  // Get all text nodes on the page
+  const textNodes = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
 
-  // Fetch the difficult words based on the user's difficulty level
-  const difficultWords = getAllDifficultWords(userDifficultyLevel);
+  // Loop through each text node
+  while (textNodes.nextNode()) {
+    const textNode = textNodes.currentNode;
 
-  // Process difficult words and fetch definitions
-  difficultWords.forEach(async word => {
-    const definition = await fetchDefinitionFromChatGPT(word);
-    // Display or store the definition as needed
-    console.log(`${word}: ${definition}`);
-  });
+    // Split the text into words
+    const words = textNode.nodeValue.trim().split(/\s+/);
+
+    // Iterate through each word
+    for (const word of words) {
+      // Check if the word exists in your dictionary (words and their definitions)
+      getWordDefinitions(word.toLowerCase(), function (definition) {
+        if (definition) {
+          // If the word has a definition, underline it on the page
+          underlineWord(word, definition);
+        }
+      });
+    }
+  }
 }
 
-// Function to get all difficult words based on user's difficulty level
-function getAllDifficultWords(userDifficultyLevel) {
-  // You need to implement logic to fetch words based on user's difficulty level
-  // For now, let's assume a placeholder implementation
-  const allWords = ['word1', 'word2', 'word3', 'word4', 'word5'];
-  return allWords.slice(userDifficultyLevel - 1);
-}
-
-// Load difficult words when the content script is executed
-loadDifficultWords();
+// Execute the content script logic when the DOM is fully loaded
+document.addEventListener('DOMContentLoaded', function () {
+  processPageContent();
+});

@@ -5,20 +5,67 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wordwise Options</title>
+  <style>
+    /* Add your styles here if needed */
+    body {
+      font-family: 'Arial', sans-serif;
+      padding: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #3498db;
+      color: #fff;
+      padding: 10px 15px;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+      margin-right: 10px; /* Add margin for better spacing */
+    }
+
+    /* Double-click modal window */
+    #doubleClickModal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #fff;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      z-index: 9999;
+    }
+  </style>
 </head>
 <body>
   <h1>Wordwise Options</h1>
 
-  <label for="difficultyLevel">Select Difficulty Level:</label>
-  <select id="difficultyLevel">
-    <option value="1">Level 1</option>
-    <option value="2">Level 2</option>
-    <option value="3">Level 3</option>
-    <option value="4">Level 4</option>
-    <option value="5">Level 5</option>
-  </select>
+  <!-- Double-click modal window -->
+  <div id="doubleClickModal">
+    <h2>Edit Word Meaning</h2>
+    <label for="word">Word:</label>
+    <input type="text" id="word" readonly>
+    <label for="meaning">Meaning:</label>
+    <textarea id="meaning" rows="4"></textarea>
+    <button id="saveMeaning">Save Meaning</button>
+    <button id="closeModal">Close</button>
+  </div>
 
-  <button id="saveOptions">Save Options</button>
+  <!-- Import and Export buttons -->
+  <label for="importButton">Import CSV:</label>
+  <input type="file" id="importButton" accept=".csv">
+  <button id="exportButton">Export CSV</button>
 
   <script src="options.js"></script>
 </body>
