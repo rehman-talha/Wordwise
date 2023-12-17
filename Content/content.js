@@ -24,6 +24,18 @@ function underlineWord(word, definition) {
   range.surroundContents(span);
 }
 
+// Function to handle double click on a word
+function handleDoubleClick(event) {
+  const selectedWord = window.getSelection().toString().trim();
+  if (selectedWord) {
+    // Send a message to the background script to handle the double click
+    browser.runtime.sendMessage({ action: 'handleDoubleClick', word: selectedWord });
+  }
+}
+
+// Add event listener for double click
+document.addEventListener('dblclick', handleDoubleClick);
+
 // Function to process the text content of the webpage
 function processPageContent() {
   // Get all text nodes on the page
