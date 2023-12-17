@@ -1,0 +1,35 @@
+<!-- popup/doubleclick-popup.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wordwise - Double Click Popup</title>
+  <style>
+    body {
+      width: 300px;
+      padding: 10px;
+    }
+    input {
+      margin-bottom: 10px;
+    }
+    button {
+      margin-right: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h3>Add/Modify Meaning</h3>
+  <label for="wordInput">Word:</label>
+  <input type="text" id="wordInput" disabled>
+  <br>
+  <label for="definitionInput">Definition:</label>
+  <input type="text" id="definitionInput">
+  <br>
+  <button id="saveButton">Save</button>
+  <button id="deleteButton">Delete</button>
+  <script src="doubleclick-popup.js"></script>
+</body>
+</html>
