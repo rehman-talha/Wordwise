@@ -1,34 +1,42 @@
 // background/background.js
 
-// Example: Log a message when the extension is installed
-browser.runtime.onInstalled.addListener(function(details) {
-  if (details.reason === 'install') {
-    console.log('Extension installed!');
-    // Initialize storage for words and their definitions
-    browser.storage.local.set({ wordwiseWords: {} });
-  } else if (details.reason === 'update') {
-    console.log('Extension updated!');
-  }
-});
+// ... (previous code)
 
-// Example: Listen for a message from the content script
+// Example: Listen for a message from the content script or popup
 browser.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   console.log('Message received in background:', request);
 
-  // Check if the message is to add a new word
-  if (request.action === 'addWord') {
-    // Retrieve existing words and their definitions from storage
+  // ... (previous code)
+
+  // Check if the message is to get all words and definitions
+  if (request.action === 'getAllWords') {
     browser.storage.local.get('wordwiseWords', function(result) {
       const wordwiseWords = result.wordwiseWords || {};
-      
-      // Add the new word and its definition
-      wordwiseWords[request.word] = request.definition;
+      sendResponse({ words: wordwiseWords });
+    });
+  }
 
-      // Save the updated words and their definitions to storage
-      browser.storage.local.set({ wordwiseWords: wordwiseWords });
+  // Check if the message is to import words
+  if (request.action === 'importWords') {
+    const importedWords = request.words;
 
-      // Send a response if needed
-      sendResponse({ message: 'Word added successfully!' });
+    // Merge imported words with existing words (if any)
+    browser.storage.local.get('wordwiseWords', function(result) {
+      const existingWords = result.wordwiseWords || {};
+      const mergedWords = { ...existingWords, ...importedWords };
+
+      // Save the merged words back to storage
+      browser.storage.local.set({ wordwiseWords: mergedWords }, function() {
+        sendResponse({ message: 'Words imported successfully!' });
+      });
+    });
+  }
+
+  // Check if the message is to view words
+  if (request.action === 'viewWords') {
+    browser.storage.local.get('wordwiseWords', function(result) {
+      const wordwiseWords = result.wordwiseWords || {};
+      sendResponse({ words: wordwiseWords });
     });
   }
 
