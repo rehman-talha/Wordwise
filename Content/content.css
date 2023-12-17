@@ -1,19 +1,23 @@
 /* content/content.css */
 
+/* Styles for the underlined words */
+span[style*="text-decoration: underline"] {
+  position: relative;
+  line-height: 1.2; /* Set the same line height as in content.js */
+}
+
 /* Styles for the injected meanings */
 .wordwise-meaning {
-  background-color: #3498db; /* Blue background color */
-  color: #ffffff; /* White text color */
+  color: inherit; /* Use the inherit value to maintain the usual text color */
   font-weight: bold;
-  border-radius: 4px;
-  padding: 4px 8px;
+  border-bottom: 2px solid transparent; /* Transparent border to simulate an underline effect */
+  padding: 0 4px;
   margin: 0 2px;
   display: inline-block;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Box shadow for a subtle lift */
-  transition: background-color 0.3s ease; /* Smooth transition for background color */
+  transition: border-color 0.3s ease; /* Smooth transition for border color */
 }
 
 /* Hover effect for the injected meanings */
 .wordwise-meaning:hover {
-  background-color: #2980b9; /* Darker blue on hover */
+  border-color: #2980b9; /* Darker blue on hover */
 }
