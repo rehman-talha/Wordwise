@@ -9,7 +9,6 @@
   },
   "default_locale": "en",
   "permissions": ["storage", "activeTab", "tabs"],
-  // ... (rest of your manifest)
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
