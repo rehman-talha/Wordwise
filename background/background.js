@@ -24,10 +24,10 @@ browser.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     // ... (previous code)
 
     // Add the new word and its definition
-    wordwiseWords[request.word] = request.definition;
+    wordDictionary[request.word] = request.definition;
 
     // Save the updated words and their definitions to storage
-    browser.storage.local.set({ wordwiseWords: wordwiseWords });
+    browser.storage.local.set({ wordwiseWords: wordDictionary });
 
     // Send a response if needed
     sendResponse({ message: 'Word added successfully!' });
