@@ -1,14 +1,20 @@
 {
-  "name": "Wordwise",
-  "version": "1.0",
-  "manifest_version": 2,
-  "description": "Elevate your online reading experience with Wordwise.",
-  "icons": {
-    "48": "icons/icon.png",
-    "128": "icons/icon.png"
+  "browser_specific_settings": {
+    "gecko": {}
   },
-  "default_locale": "en",
-  "permissions": ["storage", "activeTab"],
+  "background": {
+    "scripts": []
+  },
+  "browser_action": {
+    "default_icon": {
+      "19": "icons/icon.png",
+      "38": "icons/icon.png"
+    },
+    "default_title": "",
+    "default_popup": ""
+  },
+  "commands": {},
+  "content_security_policy": "",
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
@@ -17,15 +23,22 @@
       "run_at": "document_idle"
     }
   ],
+  "default_locale": "en",
+  "description": "Elevate your online reading experience with Wordwise.",
+  "icons": {
+    "48": "icons/icon.png",
+    "128": "icons/icon.png"
+  },
+  "manifest_version": 2,
+  "name": "Wordwise",
   "options_ui": {
     "page": "options/options.html",
     "browser_style": true
   },
+  "permissions": ["storage", "activeTab"],
+  "version": "1.0",
   "web_accessible_resources": [
     "css/popup.css",
     "locales/en/messages.json"
-  ],
-  "browser_specific_settings": {
-    "gecko": {}
-  }
+  ]
 }
