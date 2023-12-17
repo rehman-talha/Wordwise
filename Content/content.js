@@ -1,53 +1,43 @@
 // content/content.js
 
-// Function to check if a word is difficult (replace this with your logic)
-function isWordDifficult(word) {
-  // Replace this with your logic to determine word difficulty
-  // For now, consider every word as difficult
-  return true;
+// Function to fetch the user's selected difficulty level from extension options
+function getUserDifficultyLevel() {
+  // You need to implement logic to fetch the user's preferred difficulty level from extension options
+  // For now, let's assume a default value of 1
+  return 1;
 }
 
-// Function to send a message to the background script to get the definition
-function getDefinitionFromBackground(word) {
-  return new Promise((resolve) => {
-    chrome.runtime.sendMessage({ action: 'getDefinition', word }, function(response) {
-      resolve(response.definition);
-    });
+// Function to fetch definitions using ChatGPT API
+async function fetchDefinitionFromChatGPT(word) {
+  // You need to implement logic to fetch definitions using ChatGPT API
+  // For now, let's assume a placeholder implementation
+  const response = await fetch(`https://api.example.com/chatgpt?word=${word}`);
+  const data = await response.json();
+  return data.definition;
+}
+
+// Function to load difficult words based on user's selected difficulty level
+function loadDifficultWords() {
+  const userDifficultyLevel = getUserDifficultyLevel();
+
+  // Fetch the difficult words based on the user's difficulty level
+  const difficultWords = getAllDifficultWords(userDifficultyLevel);
+
+  // Process difficult words and fetch definitions
+  difficultWords.forEach(async word => {
+    const definition = await fetchDefinitionFromChatGPT(word);
+    // Display or store the definition as needed
+    console.log(`${word}: ${definition}`);
   });
 }
 
-// Function to load definitions for difficult words
-async function loadDefinitions() {
-  // Example: Get all paragraphs on the page
-  const paragraphs = document.querySelectorAll('p');
-
-  // Example: Loop through paragraphs
-  for (const paragraph of paragraphs) {
-    const words = paragraph.textContent.split(' ');
-
-    // Loop through words in the paragraph
-    for (let i = 0; i < words.length; i++) {
-      const word = words[i];
-
-      // Check if the word is difficult
-      if (isWordDifficult(word)) {
-        // Get the definition from the background script
-        const definition = await getDefinitionFromBackground(word);
-
-        // Add the definition as a tooltip or display it on top of the word
-        const span = document.createElement('span');
-        span.textContent = ` (${definition}) `;
-        span.style.fontSize = 'small'; // Adjust the font size as needed
-
-        // Replace the word with the word and its definition
-        words[i] = word + span.outerHTML;
-      }
-    }
-
-    // Update the paragraph content with modified words
-    paragraph.innerHTML = words.join(' ');
-  }
+// Function to get all difficult words based on user's difficulty level
+function getAllDifficultWords(userDifficultyLevel) {
+  // You need to implement logic to fetch words based on user's difficulty level
+  // For now, let's assume a placeholder implementation
+  const allWords = ['word1', 'word2', 'word3', 'word4', 'word5'];
+  return allWords.slice(userDifficultyLevel - 1);
 }
 
-// Load definitions when the content script is executed
-loadDefinitions();
+// Load difficult words when the content script is executed
+loadDifficultWords();
