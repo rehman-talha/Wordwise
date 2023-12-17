@@ -10,7 +10,6 @@
   "default_locale": "en",
   "permissions": [
     "activeTab"
-    // Add any additional permissions your extension needs
   ],
   "content_scripts": [
     {
@@ -38,12 +37,9 @@
     "gecko": {
       "strict_min_version": "68.0"
     }
-    // Add settings for other browsers if necessary
   },
   "browser_specific_settings": {
     "gecko": {
-      // Add browser-specific settings for Firefox
     }
-    // Add settings for other browsers if necessary
   }
 }
