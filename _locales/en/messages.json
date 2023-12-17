@@ -1,26 +1,26 @@
 {
-  "extensionName": {
-    "message": "Wordwise",
-    "description": "Extension name"
-  },
-  "extensionDescription": {
-    "message": "Elevate your online reading experience with Wordwise.",
-    "description": "Extension description"
-  },
-  "popupTitle": {
-    "message": "Wordwise Popup",
-    "description": "Title for the popup window"
-  },
-  "exportWords": {
-    "message": "Export Words",
-    "description": "Label for the export words button"
-  },
-  "importWords": {
-    "message": "Import Words",
-    "description": "Label for the import words button"
-  },
-  "viewWords": {
-    "message": "View Words",
-    "description": "Label for the view words button"
-  },
+    "extensionName": {
+        "message": "Wordwise",
+        "description": "Extension name"
+    },
+    "extensionDescription": {
+        "message": "Elevate your online reading experience with Wordwise.",
+        "description": "Extension description"
+    },
+    "popupTitle": {
+        "message": "Wordwise Popup",
+        "description": "Title for the popup window"
+    },
+    "exportWords": {
+        "message": "Export Words",
+        "description": "Label for the export words button"
+    },
+    "importWords": {
+        "message": "Import Words",
+        "description": "Label for the import words button"
+    },
+    "viewWords": {
+        "message": "View Words",
+        "description": "Label for the view words button"
+    }
 }
