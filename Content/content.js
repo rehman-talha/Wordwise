@@ -1,50 +1,52 @@
 // content/content.js
 
-// Example: Log a message when the content script is executed
-console.log('Content script is running!');
-
-// Function to load definitions for difficult words
-function loadDefinitions() {
-  // Example: Get all paragraphs on the page
-  const paragraphs = document.querySelectorAll('p');
-
-  // Example: Loop through paragraphs and add definitions
-  paragraphs.forEach(function (paragraph) {
-    const words = paragraph.textContent.split(' ');
-
-    // Example: Check each word for difficulty and add definitions
-    words.forEach(function (word) {
-      // Replace this with your logic to determine if a word is difficult
-      const isDifficult = isWordDifficult(word);
-
-      if (isDifficult) {
-        // Replace this with your logic to fetch the definition
-        const definition = getWordDefinition(word);
-
-        // Add the definition as a tooltip or small text near the word
-        const span = document.createElement('span');
-        span.textContent = ` (${definition}) `;
-        span.style.fontSize = 'small'; // Adjust the font size as needed
-
-        // Wrap the word with the span
-        paragraph.innerHTML = paragraph.innerHTML.replace(word, span.outerHTML);
-      }
-    });
-  });
-}
-
-// Function to determine if a word is difficult (replace this with your logic)
+// Function to check if a word is difficult (replace this with your logic)
 function isWordDifficult(word) {
   // Replace this with your logic to determine word difficulty
   // For now, consider every word as difficult
   return true;
 }
 
-// Function to fetch the definition of a word (replace this with your logic)
-function getWordDefinition(word) {
-  // Replace this with your logic to fetch the definition
-  // For now, return a placeholder definition
-  return 'Definition of ' + word;
+// Function to send a message to the background script to get the definition
+function getDefinitionFromBackground(word) {
+  return new Promise((resolve) => {
+    chrome.runtime.sendMessage({ action: 'getDefinition', word }, function(response) {
+      resolve(response.definition);
+    });
+  });
+}
+
+// Function to load definitions for difficult words
+async function loadDefinitions() {
+  // Example: Get all paragraphs on the page
+  const paragraphs = document.querySelectorAll('p');
+
+  // Example: Loop through paragraphs
+  for (const paragraph of paragraphs) {
+    const words = paragraph.textContent.split(' ');
+
+    // Loop through words in the paragraph
+    for (let i = 0; i < words.length; i++) {
+      const word = words[i];
+
+      // Check if the word is difficult
+      if (isWordDifficult(word)) {
+        // Get the definition from the background script
+        const definition = await getDefinitionFromBackground(word);
+
+        // Add the definition as a tooltip or display it on top of the word
+        const span = document.createElement('span');
+        span.textContent = ` (${definition}) `;
+        span.style.fontSize = 'small'; // Adjust the font size as needed
+
+        // Replace the word with the word and its definition
+        words[i] = word + span.outerHTML;
+      }
+    }
+
+    // Update the paragraph content with modified words
+    paragraph.innerHTML = words.join(' ');
+  }
 }
 
 // Load definitions when the content script is executed
