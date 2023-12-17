@@ -1,0 +1,19 @@
+/* content/content.css */
+
+/* Styles for the injected meanings */
+.wordwise-meaning {
+  background-color: #3498db; /* Blue background color */
+  color: #ffffff; /* White text color */
+  font-weight: bold;
+  border-radius: 4px;
+  padding: 4px 8px;
+  margin: 0 2px;
+  display: inline-block;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Box shadow for a subtle lift */
+  transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+
+/* Hover effect for the injected meanings */
+.wordwise-meaning:hover {
+  background-color: #2980b9; /* Darker blue on hover */
+}
