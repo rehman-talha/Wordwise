@@ -31,6 +31,7 @@
       border: none;
       cursor: pointer;
       border-radius: 4px;
+      margin-right: 10px; /* Add margin for better spacing */
     }
 
     /* Double-click modal window */
@@ -60,6 +61,11 @@
     <button id="saveMeaning">Save Meaning</button>
     <button id="closeModal">Close</button>
   </div>
+
+  <!-- Import and Export buttons -->
+  <label for="importButton">Import CSV:</label>
+  <input type="file" id="importButton" accept=".csv">
+  <button id="exportButton">Export CSV</button>
 
   <script src="options.js"></script>
 </body>
