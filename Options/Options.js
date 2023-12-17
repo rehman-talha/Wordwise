@@ -9,10 +9,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Function to load saved options
 function loadOptions() {
-  browser.storage.sync.get(['difficultyLevel'], function(result) {
+  browser.storage.sync.get(['difficultyLevel', 'apiKey'], function(result) {
     // Set the selected difficulty level in the dropdown
     const difficultyLevel = result.difficultyLevel || '1';
     document.getElementById('difficultyLevel').value = difficultyLevel;
+
+    // Set the saved API key in the input field
+    const apiKey = result.apiKey || '';
+    document.getElementById('apiKey').value = apiKey;
   });
 }
 
@@ -21,8 +25,11 @@ function saveOptions() {
   // Get the selected difficulty level
   const difficultyLevel = document.getElementById('difficultyLevel').value;
 
-  // Save the difficulty level in Firefox storage
-  browser.storage.sync.set({ difficultyLevel }, function() {
+  // Get the entered API key
+  const apiKey = document.getElementById('apiKey').value.trim();
+
+  // Save the difficulty level and API key in Firefox storage
+  browser.storage.sync.set({ difficultyLevel, apiKey }, function() {
     // Notify the user that options were saved
     alert('Options saved!');
   });
