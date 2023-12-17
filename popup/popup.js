@@ -1,34 +1,32 @@
 // popup/popup.js
 
 document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById('exportWords').addEventListener('click', exportWords);
-  document.getElementById('importWords').addEventListener('change', handleImport);
-  document.getElementById('viewWords').addEventListener('click', viewWords);
+  // Add event listener to handle export button click
+  document.getElementById('exportButton').addEventListener('click', handleExport);
+
+  // Add event listener to handle import button click
+  document.getElementById('importButton').addEventListener('change', handleImport);
+
+  // Add event listener to handle view words button click
+  document.getElementById('viewWordsButton').addEventListener('click', handleViewWords);
 });
 
-function exportWords() {
-  // Implement logic to export the list of words
-  console.log('Export Words clicked!');
+// Function to handle export
+function handleExport() {
+  // ... (previous code)
 }
 
+// Function to handle import
 function handleImport(event) {
-  const fileInput = event.target;
-  const file = fileInput.files[0];
-
-  if (file) {
-    const reader = new FileReader();
-
-    reader.onload = function(e) {
-      const csvData = e.target.result;
-      // Implement logic to handle the imported data
-      console.log('Imported data:', csvData);
-    };
-
-    reader.readAsText(file);
-  }
+  // ... (previous code)
 }
 
-function viewWords() {
-  // Implement logic to open a larger window for viewing the list of words
-  console.log('View Words clicked!');
+// Function to handle view words
+function handleViewWords() {
+  // Send a message to the background script to view words
+  browser.runtime.sendMessage({ action: 'viewWords' }, function(response) {
+    const words = response.words || {};
+    const wordsList = Object.entries(words).map(([word, definition]) => `${word}: ${definition}`);
+    alert(wordsList.join('\n'));
+  });
 }
