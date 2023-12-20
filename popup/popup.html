@@ -1,16 +1,21 @@
+<!-- popup.html -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wordwise Popup</title>
-  <!-- Link your JavaScript file -->
-  <script src="popup.js"></script>
 </head>
 <body>
-  <!-- Your HTML content goes here -->
-  <input type="file" id="importButton" />
-  <button id="exportButton">Export</button>
-  <button id="viewWordsButton">View Words</button>
+  <h2>Wordwise Popup</h2>
+
+  <button onclick="handleImport()">Import Words</button>
+  <button onclick="handleExport()">Export Words</button>
+  <button onclick="handleViewWords()">View Words</button>
+
+  <div id="words-container"></div> <!-- Container for displaying words -->
+
+  <script src="popup.js"></script>
 </body>
 </html>
