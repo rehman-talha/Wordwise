@@ -33,8 +33,25 @@ function handleDoubleClick(event) {
   }
 }
 
-// Add event listener for double click
-document.addEventListener('dblclick', handleDoubleClick);
+// Function to add a new word and its definition to the local dictionary
+function addWordToDictionary(word, definition) {
+  browser.runtime.sendMessage({ action: 'addWordToDictionary', word: word, definition: definition });
+}
+
+// Function to remove a word from the local dictionary
+function removeWordFromDictionary(word) {
+  browser.runtime.sendMessage({ action: 'removeWordFromDictionary', word: word });
+}
+
+// Function to import words and definitions from a CSV file
+function importDictionary(csvContent) {
+  browser.runtime.sendMessage({ action: 'importDictionary', csvContent: csvContent });
+}
+
+// Function to export the local dictionary to a CSV file
+function exportDictionary() {
+  browser.runtime.sendMessage({ action: 'exportDictionary' });
+}
 
 // Function to process the text content of the webpage
 function processPageContent() {
@@ -65,3 +82,6 @@ function processPageContent() {
 document.addEventListener('DOMContentLoaded', function () {
   processPageContent();
 });
+
+// Add event listener for double click
+document.addEventListener('dblclick', handleDoubleClick);
