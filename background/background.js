@@ -18,35 +18,45 @@ const wordDictionary = {};
 browser.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   console.log('Message received in background:', request);
 
-  // Check if the message is to add a new word
-  if (request.action === 'addWord') {
-    // Retrieve existing words and their definitions from storage
-    // ... (previous code)
+  // Check if the message is for the double-click functionality
+  if (request.action === 'getWordDefinition') {
+    // Retrieve the definition of the requested word
+    sendResponse({ definition: wordDictionary[request.word] });
+  }
 
-    // Add the new word and its definition
-    wordDictionary[request.word] = request.definition;
+  // Check if the message is to add or update a word
+  if (request.action === 'addOrUpdateWord') {
+    // Add or update the word and its definition in the dictionary
+    addOrUpdateWord(request.word, request.definition);
 
     // Save the updated words and their definitions to storage
     browser.storage.local.set({ wordwiseWords: wordDictionary });
 
     // Send a response if needed
-    sendResponse({ message: 'Word added successfully!' });
+    sendResponse({ message: 'Word added/updated successfully!' });
   }
 
-  // Check if the message is to get all words and definitions
-  if (request.action === 'getAllWords') {
-    browser.storage.local.get('wordwiseWords', function(result) {
-      const wordwiseWords = result.wordwiseWords || {};
+  // Check if the message is to delete a word
+  if (request.action === 'deleteWord') {
+    // Delete the word and its definition
+    deleteWord(request.word);
 
-      // Add the new word and its definition
-      wordwiseWords[request.word] = request.definition;
-      sendResponse({ words: wordwiseWords });
-    });
+    // Save the updated words and their definitions to storage
+    browser.storage.local.set({ wordwiseWords: wordDictionary });
+
+    // Send a response if needed
+    sendResponse({ message: 'Word deleted successfully!' });
   }
 
   // Check if the message is to import words
-  if (request.action === 'importWords') {
-    const importedWords = request.words;
+  if (request.action === 'importDictionary') {
+    const importedWords = request.csvContent.split('\n').reduce((acc, line) => {
+      const [word, definition] = line.split(',');
+      if (word && definition) {
+        acc[word.trim()] = definition.trim();
+      }
+      return acc;
+    }, {});
 
     // Merge imported words with existing words (if any)
     browser.storage.local.get('wordwiseWords', function(result) {
@@ -60,28 +70,24 @@ browser.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     });
   }
 
-  // Check if the message is to view words
-  if (request.action === 'viewWords') {
+  // Check if the message is to export the dictionary
+  if (request.action === 'exportDictionary') {
+    // Retrieve the current dictionary
     browser.storage.local.get('wordwiseWords', function(result) {
       const wordwiseWords = result.wordwiseWords || {};
-      sendResponse({ words: wordwiseWords });
+
+      // Convert the dictionary to CSV format
+      const csvContent = Object.entries(wordwiseWords)
+        .map(([word, definition]) => `${word},${definition}`)
+        .join('\n');
+
+      // Trigger download of the CSV file
+      browser.downloads.download({
+        filename: 'wordwise_dictionary.csv',
+        url: 'data:text/csv;charset=utf-8,' + encodeURIComponent(csvContent),
+        saveAs: true,
+      });
     });
-  }
-
-  // Check if the message is for the double-click functionality
-  if (request.action === 'getWordDefinition') {
-    // Retrieve the definition of the requested word
-    sendResponse({ definition: wordDictionary[request.word] });
-  }
-
-  if (request.action === 'addOrUpdateWord') {
-    // Add or update the word and its definition in the dictionary
-    addOrUpdateWord(request.word, request.definition);
-  }
-
-  if (request.action === 'deleteWord') {
-    // Delete the word and its definition
-    deleteWord(request.word);
   }
 });
 
