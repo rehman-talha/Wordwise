@@ -65,11 +65,19 @@ function handleViewWords() {
       const wordwiseWords = response.words;
       console.log('Viewing Words:', wordwiseWords);
 
-      // You can add more logic to display the words
-      // For example, open a new tab or a popup to display the words
-      // This is just a placeholder for the actual logic
+      // Display words in the popup
+      const wordsContainer = document.getElementById('words-container');
+      wordsContainer.innerHTML = '';
+
+      for (const [word, definition] of Object.entries(wordwiseWords)) {
+        const wordElement = document.createElement('div');
+        wordElement.textContent = `${word}: ${definition}`;
+        wordsContainer.appendChild(wordElement);
+      }
     })
     .catch(error => {
       console.error('Error viewing words:', error);
     });
 }
+
+// ... (additional code for handling double click functionality, if needed)
