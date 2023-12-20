@@ -1,36 +1,60 @@
-// popup/doubleclick-popup.js
+<!-- popup/popup.html -->
 
-document.addEventListener('DOMContentLoaded', function () {
-  const wordInput = document.getElementById('wordInput');
-  const definitionInput = document.getElementById('definitionInput');
-  const saveButton = document.getElementById('saveButton');
-  const deleteButton = document.getElementById('deleteButton');
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wordwise Popup</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
 
-  // Get the word and its current definition from the background script
-  browser.runtime.sendMessage({ action: 'getWordDefinition', word: wordInput.value }, function (definition) {
-    definitionInput.value = definition || '';
-  });
+    h2 {
+      color: #333;
+    }
 
-  // Handle Save button click
-  saveButton.addEventListener('click', function () {
-    const word = wordInput.value;
-    const definition = definitionInput.value;
+    label {
+      display: block;
+      margin-top: 10px;
+      color: #555;
+    }
 
-    // Send a message to the background script to add or update the word and definition
-    browser.runtime.sendMessage({ action: 'addOrUpdateWord', word: word, definition: definition });
+    input, textarea {
+      width: 100%;
+      box-sizing: border-box;
+      margin-top: 5px;
+    }
 
-    // Close the popup
-    window.close();
-  });
+    button {
+      margin-top: 10px;
+      padding: 8px 12px;
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
 
-  // Handle Delete button click
-  deleteButton.addEventListener('click', function () {
-    const word = wordInput.value;
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <h2>Wordwise Popup</h2>
 
-    // Send a message to the background script to delete the word and its definition
-    browser.runtime.sendMessage({ action: 'deleteWord', word: word });
+  <label for="wordInput">Word:</label>
+  <input type="text" id="wordInput" readonly>
 
-    // Close the popup
-    window.close();
-  });
-});
+  <label for="definitionInput">Definition:</label>
+  <textarea id="definitionInput" rows="4"></textarea>
+
+  <button id="saveButton">Save</button>
+  <button id="deleteButton">Delete</button>
+
+  <script src="doubleclick-popup.js"></script>
+</body>
+</html>
+
