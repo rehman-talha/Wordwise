@@ -2,6 +2,8 @@
 
 Elevate your online reading experience with Wordwise – a browser extension inspired by Kindle's Wordwise feature.
 
+## Under Construction 🚧🏗️
+
 ## Overview
 
 Wordwise enhances your reading on the web by providing meanings for difficult words right on the page. It comes with a local dictionary that allows you to add, modify, and remove words, ensuring a personalized and enriching reading experience.
