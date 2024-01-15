@@ -38,7 +38,7 @@
       "suggested_key": {
         "default": "Ctrl+Shift+W",
         "mac": "MacCtrl+Shift+W"
-      },
+      }, 
       "description": "Toggle Wordwise for the current page"
     }
   }
