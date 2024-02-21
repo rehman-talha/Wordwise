@@ -32,7 +32,7 @@ Wordwise enhances your reading on the web by providing meanings for difficult wo
 2. **On-Page Word Definitions:** Experience Wordwise in action as it automatically displays meanings for difficult words directly on top of the words.
 
 3. **Double Click Functionality:** Double click on words within articles to open a popup, allowing you to add, remove, or modify definitions for specific words.
-
+ 
 ## Contributing
 
 
