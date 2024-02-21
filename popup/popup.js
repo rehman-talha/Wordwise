@@ -81,3 +81,4 @@ function handleViewWords() {
 }
 
 // ... (additional code for handling double click functionality, if needed)
+ 
