@@ -12,7 +12,7 @@ span[style*="text-decoration: underline"] {
   font-weight: bold;
   font-size: 70%; /* Adjust the font size as needed */
   text-decoration: none; /* Remove the default text underline */
-  padding: 0 2px; /* Adjust padding as needed */
+  padding: 0 2px; /* Adjust padding as needed  */
   margin: 0;
   display: inline; /* Display as inline to prevent line break */
   white-space: nowrap; /* Prevent line break */
