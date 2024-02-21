@@ -10,7 +10,7 @@ function underlineWord(word, definition) {
   // Adjust the line-height value based on your preference
   const lineHeightValue = '1.2';
 
-  // Create a span element for the underlined word
+  // Create a span element for the underlined words
   const span = document.createElement('span');
   span.style.textDecoration = 'underline';
   span.style.position = 'relative';
