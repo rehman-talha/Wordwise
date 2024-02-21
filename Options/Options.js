@@ -1,6 +1,6 @@
 // options/options.js
 document.addEventListener('DOMContentLoaded', function() {
-  // Add event listener to handle double-click and show the modal window
+  // Add event listener to handle double-click and show the modal window 
   document.addEventListener('dblclick', showDoubleClickModal);
 
   // Add event listener to save meaning when the "Save Meaning" button is clicked
