@@ -1,7 +1,7 @@
 /* content/content.css */
 
 /* Styles for the underlined words */
-span[style*="text-decoration: underline"] {
+span.wordwise-underlined {
   position: relative;
   line-height: 1.2; /* Set the same line height as in content.js */
 }
@@ -10,7 +10,7 @@ span[style*="text-decoration: underline"] {
 .wordwise-meaning {
   color: inherit; /* Use the inherit value to maintain the same text color as the word */
   font-weight: bold;
-  font-size: 70%; /* Adjust the font size as needed */
+  font-size: 0.7em; /* Adjust the font size as needed */
   text-decoration: none; /* Remove the default text underline */
   padding: 0 2px; /* Adjust padding as needed  */
   margin: 0;
