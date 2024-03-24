@@ -2,7 +2,7 @@
 
 Elevate your online reading experience with Wordwise – a browser extension inspired by Kindle's Wordwise feature.
 
-## Under Construction 🏗️
+## Status = Under Construction 🏗️
 
 ## Overview
 
